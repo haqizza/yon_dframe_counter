@@ -36,7 +36,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
     Map<String, int> classCount = <String, int>{};
 
     for (int i = 0; i < detectedObjects!.length; i++) {
-      String className = detectedObjects[i].className.toString();
+      String className = detectedObjects[i].className.toString() + detectedObjects[i].classId.toString();
 
       if(classCount[className] == null) {
         classCount[className] = 1;
@@ -49,6 +49,8 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
 
     for (var i = 0; i < detectedObjects.length; i++) {
       Predictions object = detectedObjects[i];
+
+      img.ColorRgb8 anotationColor = object.classId == 0 ? img.ColorRgb8(255, 0, 0) : img.ColorRgb8(0, 255, 0);
 
       double halfWidth = object.width! / 2;
       double halfHeight = object.height! / 2;
@@ -64,7 +66,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen> {
         y1: y1,
         x2: x2,
         y2: y2,
-        color: img.ColorRgb8(255, 0, 0)
+        color: anotationColor
       );
     }
 
